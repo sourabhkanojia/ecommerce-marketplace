@@ -14,7 +14,6 @@ mysqlPool.getConnection(function(err) {
         throw Error("Unable to connect with mysql")
         // return;
     }
-    console.log('mysqldb connected');
 })
 
 module.exports = mysqlPool;

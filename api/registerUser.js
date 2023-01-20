@@ -1,4 +1,5 @@
 const helper = require('../helper')
+const bcrypt = require('bcrypt')
 
 // Create new user
 async function handleRegisterUser(req, res) {
@@ -8,15 +9,18 @@ async function handleRegisterUser(req, res) {
         res.status(400).send("Invalid request body")
         return
     }
-    let insertQuery = `INSERT INTO user(username,password,type) VALUES("${body.username}","${body.password}","${body.type}")`
+    const hashPassword = await bcrypt.hash(body.password, 10);
+    body.password = hashPassword
+    let insertUserQuery = `INSERT INTO user(username,password,type) VALUES("${body.username}","${body.password}","${body.type}")`
     try {
-        await helper.dbMethods.query(insertQuery)
+        await helper.dbMethods.query(insertUserQuery)
         console.log("successfully inserted info of new user")
         res.status(200).send("successfully registered")
     } catch (err) {
         if (err.errno===1062){
             res.status(400).send("Username already exist")
         } else {
+            console.log({msg: "Error while adding new user", err, insertUserQuery})
             res.status(500).send("Error while adding new user")
         }
     }
