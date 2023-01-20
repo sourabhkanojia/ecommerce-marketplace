@@ -1,5 +1,6 @@
 const helper = require('../helper')
 const bcrypt = require('bcrypt')
+const uuid = require('uuid4')
 
 // Create new user
 async function handleRegisterUser(req, res) {
@@ -11,7 +12,7 @@ async function handleRegisterUser(req, res) {
     }
     const hashPassword = await bcrypt.hash(body.password, 10);
     body.password = hashPassword
-    let insertUserQuery = `INSERT INTO user(username,password,type) VALUES("${body.username}","${body.password}","${body.type}")`
+    let insertUserQuery = `INSERT INTO user(id,username,password,type) VALUES("${uuid()}","${body.username}","${body.password}","${body.type}")`
     try {
         await helper.dbMethods.query(insertUserQuery)
         console.log("successfully inserted info of new user")

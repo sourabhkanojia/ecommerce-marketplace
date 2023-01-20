@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const router = require('./api/router')
+require('dotenv').config()
 
 app.use(express.json());
 // setup the logger
