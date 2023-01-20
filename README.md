@@ -9,6 +9,6 @@
 
 ### How to run
 1. Run npm install
-2. No need to replace the mysql config as it's using freemysqlhosting. If not working use your mysql.
+2. No need to replace the mysql config as it's using freemysqlhosting. If not working use your mysql config.
 
 #### API POST MAN COLLECTION IS INCLUDED IN REPO
