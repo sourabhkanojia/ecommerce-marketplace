@@ -1,7 +1,7 @@
 const helper = require("../helper");
 
 async function handleSellerCreateCatalog(req, res) {
-    if(req.user.type!=="seller") return res.sendStatus(400)
+    if(req.user.type!=="seller") return res.sendStatus(403)
 
     const body = req.body
     let isValidBody = validateSellerCreateCatalogRequest(body)
@@ -14,7 +14,7 @@ async function handleSellerCreateCatalog(req, res) {
         const getUserUniqueIdQuery = `SELECT id FROM user WHERE username="${req.user.username}"`
         let data = await helper.dbMethods.query(getUserUniqueIdQuery)
         if(!data.length){
-            res.status(204).send("User does not exist")
+            return res.status(400).send("User does not exist")
         }
         const sellerId = data[0].id
         let value = ""
@@ -24,10 +24,10 @@ async function handleSellerCreateCatalog(req, res) {
         const insertProductQuery = `INSERT INTO products(seller_id,name,price) VALUES ${value.substring(0,value.length-1)}`
         await helper.dbMethods.query(insertProductQuery)
         console.log("successfully inserted products info")
-        res.status(200).send("successfully added products")
+        return res.status(200).send("successfully added products")
     } catch (err) {
         console.log({msg: "Error while login", err})
-        res.status(500).send("Error while creating catalog")
+        return res.status(500).send("Error while creating catalog")
     }
 }
 

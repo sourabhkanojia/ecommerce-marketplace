@@ -16,13 +16,13 @@ async function handleRegisterUser(req, res) {
     try {
         await helper.dbMethods.query(insertUserQuery)
         console.log("successfully inserted info of new user")
-        res.status(200).send("successfully registered")
+        return res.status(200).send("successfully registered")
     } catch (err) {
         if (err.errno===1062){
-            res.status(400).send("Username already exist")
+            return res.status(400).send("Username already exist")
         } else {
             console.log({msg: "Error while adding new user", err, insertUserQuery})
-            res.status(500).send("Error while adding new user")
+            return res.status(500).send("Error while adding new user")
         }
     }
 }

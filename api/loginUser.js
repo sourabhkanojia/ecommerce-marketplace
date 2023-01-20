@@ -9,26 +9,25 @@ async function handleLoginUser(req, res) {
         return
     }
 
-    let getUserHashPassQuery = `SELECT password FROM user WHERE username="${body.username}"`
+    let getUserHashPassQuery = `SELECT password,type FROM user WHERE username="${body.username}"`
     try {
         let data = await helper.dbMethods.query(getUserHashPassQuery)
-        if(!data.length){
-            res.status(204).send("User does not exist")
+        if(!data.length || data[0].type!==body.type){
+            return res.status(400).send("User does not exist")
         }
 
         const storedHashPass = data[0].password
         const result = await bcrypt.compare(body.password, storedHashPass);
         if(!result) {
-            res.status(401).send("invalid credentials")
-            return
+            return res.status(401).send("invalid credentials")
         }
 
         const user = {username: body.username, type: body.type}
         let authToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-        res.status(200).send({msg:"logged in successfully", authToken})
+        return res.status(200).send({msg:"logged in successfully", authToken})
     } catch (err) {
         console.log({msg: "Error while login", err, getUserHashPassQuery})
-        res.status(500).send("Error while login")
+        return res.status(500).send("Error while login")
     }
 }
 

@@ -15,4 +15,11 @@ router.post('/seller/create-catalog', helper.authenticateToken ,(req, res) => {
     handler.HandleSellerCreateCatalog(req, res)
 })
 
+router.get('/buyer/list-of-sellers', helper.authenticateToken, (req, res) => {
+    handler.HandleSellersList(req, res)
+})
+
+router.get('/buyer/seller-catalog/:sellerId', helper.authenticateToken, (req, res) => {
+    handler.HandleSellerCatalog(req, res)
+})
 module.exports = router;
