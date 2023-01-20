@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "7680a7a9-be78-4863-8bdb-4bfc85dc2dcc",
+		"name": "ecommerce-marketplace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "registerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"sunnycarlos1\",\n    \"password\": \"pass\",\n    \"type\": \"buyer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"sunnycarlos\",\n    \"password\": \"pass\",\n    \"type\": \"seller\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sellerCreateCatalog",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1bm55Y2FybG9zIiwidHlwZSI6InNlbGxlciIsImlhdCI6MTY3NDIyMTMzMH0.eimOgZS-ciYkA8kz3VpWFKq2nAMcGI9A8hFitTEqk78",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"lamp\",\n        \"price\": 10.99\n    },\n    {\n        \"name\": \"ssd\",\n        \"price\": 24.99\n    },\n    {\n        \"name\": \"table\",\n        \"price\": 30.99\n    },\n    {\n        \"name\": \"mouse\",\n        \"price\": 4.59\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/seller/create-catalog",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"seller",
+						"create-catalog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sellerList",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1bm55Y2FybG9zMSIsInR5cGUiOiJidXllciIsImlhdCI6MTY3NDIxMTcyOX0.NyH8K44eD1buVSkwLC1Ce6UYELNKWUYH9W0CMA1qzAU",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/buyer/list-of-sellers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"buyer",
+						"list-of-sellers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sellerCatalog",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1bm55Y2FybG9zMSIsInR5cGUiOiJidXllciIsImlhdCI6MTY3NDIxMTcyOX0.NyH8K44eD1buVSkwLC1Ce6UYELNKWUYH9W0CMA1qzAU",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/buyer/seller-catalog/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"buyer",
+						"seller-catalog",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjc0MjIzMTQzfQ.WsZcZZDsYypbICjVlUdBVL9qppWDkxkmLrDSDDmkJnk",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productIdList\": [1,2,3,4,5,6]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/buyer/create-order/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"buyer",
+						"create-order",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieveSellerOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/seller/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"seller",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
