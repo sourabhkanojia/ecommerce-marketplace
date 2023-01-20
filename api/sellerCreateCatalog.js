@@ -10,17 +10,25 @@ async function handleSellerCreateCatalog(req, res) {
         return
     }
 
-    let getUserUniqueIdQuery = `SELECT id FROM user WHERE username="${body.username}"`
     try {
+        const getUserUniqueIdQuery = `SELECT id FROM user WHERE username="${req.user.username}"`
         let data = await helper.dbMethods.query(getUserUniqueIdQuery)
         if(!data.length){
             res.status(204).send("User does not exist")
         }
+        const sellerId = data[0].id
+        let value = ""
+        for(let product of body) {
+            value += `("${sellerId}","${product.name}","${product.price}"),`
+        }
+        const insertProductQuery = `INSERT INTO products(seller_id,name,price) VALUES ${value.substring(0,value.length-1)}`
+        await helper.dbMethods.query(insertProductQuery)
+        console.log("successfully inserted products info")
+        res.status(200).send("successfully added products")
     } catch (err) {
-        console.log({msg: "Error while login", err, getUserHashPassQuery})
+        console.log({msg: "Error while login", err})
         res.status(500).send("Error while creating catalog")
     }
-    console.log(body)
 }
 
 function validateSellerCreateCatalogRequest(body) {
