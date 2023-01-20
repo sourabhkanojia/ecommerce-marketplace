@@ -9,7 +9,7 @@ async function handleLoginUser(req, res) {
         return
     }
 
-    let getUserHashPassQuery = `SELECT password,type FROM user WHERE username="${body.username}"`
+    let getUserHashPassQuery = `SELECT id,password,type FROM user WHERE username="${body.username}"`
     try {
         let data = await helper.dbMethods.query(getUserHashPassQuery)
         if(!data.length || data[0].type!==body.type){
@@ -22,7 +22,7 @@ async function handleLoginUser(req, res) {
             return res.status(401).send("invalid credentials")
         }
 
-        const user = {username: body.username, type: body.type}
+        const user = {id: data[0].id, type: body.type}
         let authToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
         return res.status(200).send({msg:"logged in successfully", authToken})
     } catch (err) {

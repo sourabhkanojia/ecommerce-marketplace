@@ -11,15 +11,10 @@ async function handleSellerCreateCatalog(req, res) {
     }
 
     try {
-        const getUserUniqueIdQuery = `SELECT id FROM user WHERE username="${req.user.username}"`
-        let data = await helper.dbMethods.query(getUserUniqueIdQuery)
-        if(!data.length){
-            return res.status(400).send("User does not exist")
-        }
-        const sellerId = data[0].id
+        const sellerId = req.user.id
         let value = ""
         for(let product of body) {
-            value += `("${sellerId}","${product.name}","${product.price}"),`
+            value += `(${sellerId},"${product.name}","${product.price}"),`
         }
         const insertProductQuery = `INSERT INTO products(seller_id,name,price) VALUES ${value.substring(0,value.length-1)}`
         await helper.dbMethods.query(insertProductQuery)
