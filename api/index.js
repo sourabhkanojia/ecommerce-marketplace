@@ -4,6 +4,7 @@ const HandleSellerCreateCatalog = require('./sellerCreateCatalog')
 const HandleSellersList = require('./sellersList')
 const HandleSellerCatalog = require('./sellerCatalog')
 const HandleCreateOrder = require('./createOrder')
+const HandleGetSellerOrders = require('./getSellerOrders')
 
 const handlers = {
     HandleRegisterUser,
@@ -11,7 +12,8 @@ const handlers = {
     HandleSellerCreateCatalog,
     HandleSellersList,
     HandleSellerCatalog,
-    HandleCreateOrder
+    HandleCreateOrder,
+    HandleGetSellerOrders
 }
 
 module.exports = handlers

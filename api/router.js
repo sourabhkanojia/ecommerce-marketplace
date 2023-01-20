@@ -26,4 +26,9 @@ router.get('/buyer/seller-catalog/:sellerId', helper.authenticateToken, (req, re
 router.post('/buyer/create-order/:sellerId', helper.authenticateToken, (req, res) => {
     handler.HandleCreateOrder(req, res)
 })
+
+router.get('/seller/orders', helper.authenticateToken, (req, res) => {
+    handler.HandleGetSellerOrders(req, res)
+})
+
 module.exports = router;
